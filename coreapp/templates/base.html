@@ -1,0 +1,274 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>{% block title %}Default{% endblock %}</title>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://bootswatch.com/5/minty/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+  <style>
+    /* Ensure the body and html take up the full height */
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+    
+    /* Main wrapper to fill space between header and footer */
+    .wrapper {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh; /* Full viewport height */
+    }
+
+    /* Make the header sticky */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 1020; /* Ensure it's above other content */
+    }
+
+    /* Ensure the footer is always at the bottom */
+    .footer {
+      margin-top: auto; /* Pushes the footer to the bottom */
+    }
+
+    /* Optional: To give a bit of space on the top */
+    .content {
+      padding-top: 60px; /* Adjust based on header height */
+    }
+    .card {
+      border-radius: 10px;
+      padding: 20px;
+      margin: 20px;
+      text-align: center; 
+    }
+    .card:hover{
+      box-shadow: 0px 4px 8px #da847b;
+      border-radius: 5px 30px 30px 30px;
+    }
+    .profile-img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 15px;
+    }
+    .viewprofile-img {
+      width: 250px;
+      height: 250px;
+      border: #000000;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 15px;
+      box-shadow: 0px 4px 8px #da847b;
+    }
+    .btn-profile {
+      border-radius: 25px;
+      padding: 10px 20px;
+      font-size: 16px;
+      margin: 0px 5px;
+    }
+    .social-icons{
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .bgimageset{
+      background-image: url('/static/image/bgimage.webp');
+      background-size: cover; /* or contain */
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+    .orderbg{
+      background-image: url('/static/image/bgi2.jpg');
+      background-size: cover; /* or contain */
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+    .profcardbg{
+      background-image: url('/static/image/bgi4.jpg');
+      background-size: cover; /* or contain */
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    .social-icons:hover{
+      box-shadow: 0px 4px 8px #f2bdb7;
+    }
+    .vertical-line {
+      border-right: 1px solid rgb(129, 70, 70); /* Line thickness and color */
+    }
+    .custom-bg {
+      background-color: #feebe9; /* Replace with your desired color */
+      color: white; /* Adjust text color for readability */
+    }
+    .navbgimg{
+      background-image: url('/static/image/greenbackefed.jpg');
+      background-size: cover; /* or contain */
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+    .navbtn{
+      background-color:transparent;
+      border-radius: 10px;
+    }
+    .navbtn:hover{
+      background-color: rgb(247, 239, 229,0.5);
+      border-radius: 10px;
+      color: black;
+    }
+    .tabactive{
+      background-color: #FFAAAA;
+      border-radius: 10px;
+      color: black;
+    }
+    .textedit{
+      text-shadow: 5px 5px 10px rgb(216, 144, 144);
+    }
+    .flex-container {
+      display: flex;
+      flex-direction: column; /* Arrange items in a column */
+      height: 100%; /* Full height */
+    } 
+    .secondcontainerbg{
+      background-image: url('/static/image/bgi4.jpg');
+      background-size: cover; /* or contain */
+      background-repeat: no-repeat;
+      background-position: center;
+  }
+  .formbgedit{
+    border-radius:10px;
+    background-color: rgb(255, 255, 255,0.5);
+  }
+  .dark{
+    background-color: #1FAB89;
+  }
+  .darkopacity{
+    background-color: rgb(31, 171, 137,0.9);
+  }
+  .medium{
+    background-color: #C8A1E0;
+  }
+  .light{
+    background-color: #E2BFD9;
+  }
+  .ultra{
+    background-color: #F7EFE5;
+  }
+  .ultralightred{
+    background-color: #EDDFE0;
+  }
+  .footerdesign1{
+    background-color: rgb(255, 255, 255, 0.5);
+    border-radius: 10px 10px 60px 10px;
+  }
+  .sitelogoedit1{
+    background-color: rgb(255, 255, 255, 0.5);
+    padding: 5px 20px;
+
+    border-radius: 10px 60px 10px 60px;
+  }
+  .sitelogoedit1:hover{
+    background-color: rgb(255, 255, 255, 0.5);
+    padding: 5px 20px;
+    border-radius: 60px 10px 60px 10px;
+  }
+  .redopacitybg{
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+  .navprofimg{
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 1px;
+    border-radius: 50%;
+    background-color:transparent;
+    border-radius: 10px;
+  }
+  .navprofimg:hover{
+    background-color: rgb(247, 239, 229,0.5);
+    border-radius: 50%;
+  }
+  </style>
+</head>
+
+<body class="ultralightred">
+  <div class="wrapper">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg darkopacity" style="height: 75px;">
+      <div class="container">
+        <a class="navbar-brand  sitelogoedit1" href="/">BudgeStich</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01"
+          aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarColor01">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item me-2"><a href="/" class="nav-link {% if request.path == '/' %}tabactive{% endif %} navbtn" aria-current="page">Home</a></li>
+            <li class="nav-item me-2"><a href="/aboutus/" class="nav-link {% if request.path == '/aboutus/' %}tabactive{% endif %} navbtn">About Us</a></li>
+
+            {% if request.user.is_authenticated %}
+              {% if request.user.user_type == 'tailor' %}
+                <li class="nav-item me-2"><a href="/tailor_dashboard/" class="nav-link {% if request.path == '/tailor_dashboard/' %}tabactive{% endif %} navbtn">View Order</a></li>
+              {% else %}
+                <li class="nav-item me-2"><a href="/order/" class="nav-link {% if request.path == '/order/' %}tabactive{% endif %} navbtn">Place Order</a></li>
+              {% endif %}
+              <li class="nav-item me-2">
+                <a href="/userprofile/" class="nav-link {% if request.path == '/userprofile/' %}tabactive{% endif %} ">
+                  Profile
+                </a>
+              </li>
+            {% else %}
+              <li class="nav-item me-2"><a href="/order/" class="nav-link {% if request.path == '/order/' %}tabactive{% endif %} navbtn">Designers/Tailors</a></li>
+              <li class="nav-item me-2"><a href="/usersignup/" class="nav-link {% if request.path == '/usersignup/' %}tabactive{% endif %} navbtn">Sign Up</a></li>
+              <li class="nav-item me-2">
+                <a href="/userlogin/" class="nav-link {% if request.path == '/userlogin/' %}tabactive{% endif %} navbtn">Log-In</a></li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    {% block content %}
+    {% endblock %}
+
+    <!-- Footer code -->
+    <div class="darkopacity text-dark p-3 border-top  footer  ">
+      <div class="container">
+        <div class="row">
+          <div class="col-4 sitelogoedit1  p-4">
+            <h3>Developed By:</h3>
+            <div class="row">
+              <div class="col">
+                <ul>
+                  <li>Swayam Dusing</li>
+                  <li>Jay Shinde</li>
+                  <li>Nikhil Pawar</li>
+                </ul>
+              </div>
+              <div class="col">
+                <ul>
+                  <li>Bhumi Jha</li>
+                  <li>Vaibhavi Dhokale</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-8  p-4">
+            <h3>BudgeStich Website is developed for the <strong>Design Thinking</strong> subject.</h3>
+          </div>
+        </div>
+      </div>
+    </div> 
+    
+    </div>
+</body>
+
+</html>
