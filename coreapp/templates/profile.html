@@ -119,38 +119,17 @@
     <div class="container mt-3 ">
         <div class="row d-flex justify-content-center">
             <div class="col-md-8">
-                <!-- <h2>My Orders</h2>
-                <hr>
-                <table class="table">
-                    <th>Order Title</th>
-                    <th>Tailor Name</th>
-                    <th>Order Status</th>
-                    {% for order in orders %}
-                    <a href="/vieweditorder/{{ order.id }}">
-                        <tr>
-                            <td><a href="/vieweditorder/{{ order.id }}" class="text-decoration-none text-dark">{{order.ordtitle}}</a></td>
-                            <td><a href="/vieweditorder/{{ order.id }}" class="text-decoration-none text-dark">{{order.tailorfullname }}</a></td>
-                            <td class="text-{% if order.orderstatus == 'Completed' %}success 
-                                                    {% elif order.orderstatus == 'Declined' %}danger 
-                                                    {% elif order.orderstatus == 'pending' %}info
-                                                    {% elif order.orderstatus == 'undecided' %}warning
-                                                    {% endif %}">
-                                {{ order.orderstatus }}
-                            </td>
-                        </tr>
-                    </a>
-                    {% endfor %}
-                </table> -->
                 <div class="accordion" id="accordionExample">
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
                                 aria-expanded="true" aria-controls="collapseOne">
-                                My Orders
+                                My Order History
                             </button>
                         </h2>
                         <div id="collapseOne" class="accordion-collapse collapse " data-bs-parent="#accordionExample">
                             <div class="accordion-body">
+                                {% if orders %}
                                 <table class="table">
                                     <th>Order Title</th>
                                     <th>Tailor Name</th>
@@ -171,6 +150,9 @@
                                     </a>
                                     {% endfor %}
                                 </table>
+                                {% else %}
+                                <p class="text-dark text-center">You have no Orders</p>
+                                {% endif %}
                             </div>
                         </div>
                     </div>

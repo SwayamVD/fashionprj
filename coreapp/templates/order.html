@@ -71,7 +71,7 @@
           </div>
 
           <h5 class="text-dark">{{tailor.first_name}} {{tailor.last_name}}</h5>
-          <p class="text-dark">{{tailor.biodis}}</p>
+          <!-- <p class="text-dark">{{tailor.biodis}}</p> -->
           <!-- <div class="row text-cente text-dark">
             <div class="col-sm-4 text-center">
               Ratings <span class="badge rounded-pill bg-success" style="margin-left: 10px;">5</span>
@@ -83,11 +83,11 @@
               <p>Followers<span class="badge rounded-pill bg-success" style="margin-left: 10px;">115</span></p>
             </div>
           </div> -->
-          <div class="d-flex justify-content-center">
+          <div class="d-flex justify-content-between mt-2">
             <!-- <a href="/placeorder/{{ tailor.id }}" class="btn btn-outline-primary w-50">View Profile</a> -->
-            <a href="/viewprofile/{{ tailor.id }}" class="btn btn-outline-dark w-50 btn-profile">View Profile</a>
+            <a href="/viewprofile/{{ tailor.id }}" class="btn btn-outline-dark">View Profile</a>
             {% if request.user.is_authenticated %}
-            <a href="/placeorder/{{ tailor.id }}" class="btn btn-outline-dark w-50 btn-profile">Place Order</a>
+            <a href="/placeorder/{{ tailor.id }}" class="btn btn-outline-dark">Place Order</a>
             {% endif %}
             
           </div>

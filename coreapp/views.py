@@ -1,4 +1,4 @@
-from django.shortcuts import render,HttpResponseRedirect,get_object_or_404,get_list_or_404
+from django.shortcuts import render,HttpResponseRedirect,get_object_or_404,get_list_or_404,redirect
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
 from .forms import CustomUserCreationForm,DressOrderForm,CustomAuthForm,CustomUserChangeForm,ChangeAddressForm,PasswordChangeForm,DeliverOrderForm
@@ -98,7 +98,6 @@ def order(request):
 
 @login_required
 def placeorder(request, id):
-    # Try to get the tailor details or raise a 404 if not found
     if request.user.is_authenticated:
         if request.user.user_type == 'tailor':
             messages.info(request, 'Only Clients and place Orders')
@@ -118,7 +117,7 @@ def placeorder(request, id):
                 dress_order.tailorfullname =  f"{tailordetail.first_name} {tailordetail.last_name}".strip()
                 dress_order.save()
                 messages.info(request, 'You have placed the order successfully.')
-                return HttpResponseRedirect('/userprofile/')  # Ensure 'userprofile' is a valid URL name
+                return HttpResponseRedirect('/userprofile/')
         else:
             form = DressOrderForm()
     else:
@@ -160,10 +159,13 @@ def trackorder(request):
 
 @login_required
 def vieworders(request):
-    name = request.user.username
-    orders = DressOrder.objects.filter(tailor=name).order_by('-created_at')
-    neword = DressOrder.objects.filter(tailor=name,orderstatus='undecided').count()
-    pendord = DressOrder.objects.filter(tailor=name,orderstatus='pending').count()
+    if request.user.user_type == 'tailor':
+        name = request.user.username
+        orders = DressOrder.objects.filter(tailor=name).order_by('-created_at')
+        neword = DressOrder.objects.filter(tailor=name,orderstatus='undecided').count()
+        pendord = DressOrder.objects.filter(tailor=name,orderstatus='pending').count()
+    else:
+        return redirect('/userprofile/')
     return render(request,'tailor_dashboard.html',{'orders':orders,'neword':neword,'pendord':pendord})
 
 @login_required
