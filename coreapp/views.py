@@ -60,6 +60,7 @@ def userlogin(request):
         fm = CustomAuthForm()
     return render(request,'userlogin.html',{'form':fm})
 
+@login_required
 def userlogout(request):
     logout(request)
     messages.info(request,'You hava Logged Out Successfully')
@@ -91,7 +92,7 @@ def order(request):
         page_obj = paginator.page(paginator.num_pages)
     return render(request, 'order.html', {'tailors': page_obj})
 
-
+@login_required
 def placeorder(request, id):
     # Try to get the tailor details or raise a 404 if not found
     if request.user.is_authenticated:
@@ -122,11 +123,12 @@ def placeorder(request, id):
     
     return render(request, 'placeorder.html', {'form': form, 'tailordetail': tailordetail})
 
+@login_required
 def manageorder(request,id):
     orderdetail = get_object_or_404(DressOrder,id=id)
     return render(request,'manageorder.html',{'order':orderdetail})
 
-
+@login_required
 def orderstatus(request,id,status):
     obj = get_object_or_404(DressOrder, id=id)
     if status.lower() == 'true':
@@ -148,11 +150,11 @@ def orderstatus(request,id,status):
         messages.info(request, 'Select Valid Option.')
         return HttpResponseRedirect('/tailor_dashboard/')
 
-
+@login_required
 def trackorder(request):
     pass
 
-
+@login_required
 def vieworders(request):
     name = request.user.username
     orders = DressOrder.objects.filter(tailor=name).order_by('-created_at')
@@ -160,15 +162,17 @@ def vieworders(request):
     pendord = DressOrder.objects.filter(tailor=name,orderstatus='pending').count()
     return render(request,'tailor_dashboard.html',{'orders':orders,'neword':neword,'pendord':pendord})
 
+@login_required
 def uservieweditorder(request,id):
     orderdetail = get_object_or_404(DressOrder,id=id)
     return render(request,'vieweditorder.html',{'order':orderdetail})
 
+@login_required
 def viewprofile(request,id):
     prof = CustomUser.objects.get(id=id)
     return render(request,'viewprofile.html',{'x':prof})
 
-
+@login_required
 def editinfo(request):
     if request.method == "POST":
         fm = CustomUserChangeForm(request.POST,request.FILES,instance=request.user )
@@ -180,6 +184,7 @@ def editinfo(request):
         fm = CustomUserChangeForm(instance=request.user)
     return render(request,'userinfochange.html',{'form':fm})
 
+@login_required
 def changepass(request):
     if request.method == 'POST':
         fm = PasswordChangeForm(user=request.user,data=request.POST)
