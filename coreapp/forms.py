@@ -57,7 +57,7 @@ class DressOrderForm(forms.ModelForm):
         widgets = {
             'design_reference': forms.ClearableFileInput(attrs={'multiple': False,'class':'form-control custom-bg  text-dark'}),
             'ordtitle': forms.TextInput(attrs={'class':'form-control custom-bg text-dark'}),
-            'body_size': forms.NumberInput(attrs={'class':'form-control custom-bg text-dark'}),
+            'body_size': forms.TextInput(attrs={'class':'form-control custom-bg text-dark','placeholder':'chest-waist-hip-bodyheight'}),
             'cloth_type': forms.TextInput(attrs={'class':'form-control custom-bg text-dark'}),
             'budget': forms.NumberInput(attrs={'class':'form-control custom-bg text-dark'}),
             'color': forms.TextInput(attrs={'class':'form-control custom-bg text-dark'}),

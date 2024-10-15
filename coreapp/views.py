@@ -65,7 +65,7 @@ def userlogout(request):
     messages.info(request,'You hava Logged Out Successfully')
     return HttpResponseRedirect('/userlogin/')
 
-
+@login_required
 def order(request):
     filter_type = request.GET.get('filter','default')
     search_query = request.GET.get('search','')
@@ -82,37 +82,14 @@ def order(request):
 
     paginator = Paginator(tailors, 6)  # Show 10 items per page
 
-    page_number = request.GET.get('page')  # Get the page number from the query string
+    page_number = request.GET.get('page')
     try:
         page_obj = paginator.page(page_number)
     except PageNotAnInteger:
-        # If page is not an integer, deliver first page.
         page_obj = paginator.page(1)
     except EmptyPage:
-        # If page is out of range (e.g. 9999), deliver last page of results.
         page_obj = paginator.page(paginator.num_pages)
-    
-    # if request.user.authenticated:
-    #     if request.user.user_type == 'tailor':
-    #         return render(request,'/profile/')
     return render(request, 'order.html', {'tailors': page_obj})
-
-# def placeorder(request,id):
-#     if request.method == 'POST':
-#         tailordetail = CustomUser.objects.get(id=id)
-#         form = DressOrderForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             dress_order = form.save(commit=False)
-#             dress_order.user = request.user  # Set the client as the current user
-#             dress_order.save()
-#             # Redirect or show a success message
-#             messages.info(request,'you have place the order successfully')
-#             return HttpResponseRedirect('/userprofile')  # Redirect to a success page or tailor's dashboard
-#     else:
-#         form = DressOrderForm()
-    
-#     return render(request, 'placeorder.html', {'form': form})
-
 
 
 def placeorder(request, id):
