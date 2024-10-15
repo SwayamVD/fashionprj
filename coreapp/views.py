@@ -68,21 +68,24 @@ def userlogout(request):
 
 @login_required
 def order(request):
-    filter_type = request.GET.get('filter','default')
-    search_query = request.GET.get('search','')
-    
-    if filter_type == 'top_rated':
-        tailors = CustomUser.objects.filter(user_type='tailor')
-    elif filter_type == 'near_me':
-        tailors = CustomUser.objects.filter(user_type='tailor',addcity=request.user.addcity)
-    elif filter_type == 'default':
-        tailors = CustomUser.objects.filter(user_type='tailor')
 
+    #handles the filter (get) request
+    filter_type = request.GET.get('filter','default')
+    if filter_type:
+        if filter_type == 'top_rated':
+            tailors = CustomUser.objects.filter(user_type='tailor')
+        elif filter_type == 'near_me':
+            tailors = CustomUser.objects.filter(user_type='tailor',addcity=request.user.addcity)
+        elif filter_type == 'default':
+            tailors = CustomUser.objects.filter(user_type='tailor')
+    
+    #handles the search (get) request
+    search_query = request.GET.get('search','')
     if search_query:
         tailors = CustomUser.objects.filter(username__startswith=search_query,user_type='tailor')
 
-    paginator = Paginator(tailors, 6)  # Show 10 items per page
-
+    #handles the displaying of the tailors cards
+    paginator = Paginator(tailors, 3)
     page_number = request.GET.get('page')
     try:
         page_obj = paginator.page(page_number)
@@ -90,6 +93,7 @@ def order(request):
         page_obj = paginator.page(1)
     except EmptyPage:
         page_obj = paginator.page(paginator.num_pages)
+
     return render(request, 'order.html', {'tailors': page_obj})
 
 @login_required
